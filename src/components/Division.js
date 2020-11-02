@@ -21,7 +21,7 @@ const Division = (props) => {
         }
         getAllTeams();
 
-    },[]);
+    },[props.division, props.conference]);
 
     return (
         <div className="teams-container">

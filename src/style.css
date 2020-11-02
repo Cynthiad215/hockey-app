@@ -18,15 +18,7 @@ img.team-logo {
     color: #5a5a5a;
 }
 
-.player-card {
-    width: 15rem;
-    background-color: #e5f4f9;
-    margin: 0.1rem;
-}
-.player-card-list {
-    display: flex;
-    padding-top: 20px;
-    justify-content: center;
-    flex-wrap: wrap;
-    flex-direction: row;
+img.player-headshot {
+    height: 8vh;
+    border-radius: 50px;
 }
