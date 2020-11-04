@@ -1,4 +1,5 @@
 import React, { useEffect, useState, useCallback } from 'react';
+import { ArrowUpIcon, ArrowDownIcon } from '@primer/octicons-react'
 import PlayerCard from './PlayerCard';
 /*
 // For re-usable Hook
@@ -15,8 +16,8 @@ const useToggle = (initialState) => {
 
 }*/
 const TeamRoster = (props) => {
-    console.log(props);
     const [isToggled, setIsToggled] = useState(false);
+    const [isJerseyNumberToggled, setJerseyNumberToggle] = useState(false)
     const [playerBios, setPlayerBios] = useState([]);
 
     const [playerNames, setPlayerNames] = useState([]);
@@ -36,7 +37,6 @@ const TeamRoster = (props) => {
             setSearchResult(tempArr);
         }
 
-        console.log('pbt', playerBiosTemp)
     }
     const toggle = useCallback(() => {
         setIsToggled(state => !state);
@@ -44,9 +44,7 @@ const TeamRoster = (props) => {
 
     const sortNames = (value) => {
         toggle();
-        console.log(isToggled)
-        console.log('sort by:', value)
-        const newSorted = [...playerBios].sort((a, b) => {
+        const sortedPlayerNames = [...playerBios].sort((a, b) => {
             var nameA = a.person.fullName.toUpperCase();
             var nameB = b.person.fullName.toUpperCase();
             if (isToggled) {
@@ -67,7 +65,15 @@ const TeamRoster = (props) => {
             // names must be equal
             return 0;
         });
-        setPlayerBios(newSorted);
+        setPlayerBios(sortedPlayerNames);
+    }
+    function sortJerseyNumbers() {
+        
+        toggle()
+        const sortedJerseyNumbers = [...playerBios].sort((a,b) => {
+            return isToggled ? a.jerseyNumber - b.jerseyNumber : b.jerseyNumber - a.jerseyNumber;
+        });
+        setPlayerBios(sortedJerseyNumbers);
     }
     useEffect(() => {
         async function getRoster() {
@@ -82,7 +88,6 @@ const TeamRoster = (props) => {
                         let tempID = key.person.id;
 
                         let name = key.person.fullName;
-                        //console.log(name)
                         playerBiosTempArr.push({ tempID, name });
 
                         playerNamesArr.push(key.person.fullName);
@@ -95,7 +100,7 @@ const TeamRoster = (props) => {
         };
         getRoster();
         // pass array of values that useEffect depends on
-    },[props.match.params.teamId])
+    }, [props.match.params.teamId])
 
 
     return (
@@ -110,8 +115,8 @@ const TeamRoster = (props) => {
             <table className="table mr-8 ml-8">
                 <thead><tr>
                     <th scope="col"></th>
-                    <th scope="col" onClick={() => sortNames("fullName")}>Name</th>
-                    <th scope="col">Number</th>
+                    <th scope="col" className="team-sort" onClick={() => sortNames("fullName")}>Name {isToggled ? <ArrowDownIcon /> :<ArrowUpIcon /> }</th>
+                    <th scope="col" className="team-sort" onClick={sortJerseyNumbers}>Number{isToggled ? <ArrowDownIcon /> :<ArrowUpIcon /> }</th>
                     <th scope="col">Position</th>
                 </tr></thead>
                 <tbody>

@@ -16,5 +16,5 @@ app.use('/teams', teams);
 app.use('/player', player);
 
 const server = http.createServer(app);
-server.listen(PORT, console.log("Listening! 🏝") )
+server.listen(PORT, console.log("Listening on PORT " + PORT + "! 🏝") )
 module.exports = server;

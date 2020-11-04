@@ -22,3 +22,8 @@ img.player-headshot {
     height: 8vh;
     border-radius: 50px;
 }
+
+.team-sort:hover { 
+    cursor: pointer;
+    color: #8a8a8a;
+}

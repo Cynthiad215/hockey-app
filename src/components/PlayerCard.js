@@ -2,7 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 
 const PlayerCard = (props) => { 
-    //console.log(props)
+    console.log(props)
     return (
         <tr className="">
 
